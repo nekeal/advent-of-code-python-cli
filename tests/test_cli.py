@@ -2,9 +2,10 @@ from pathlib import Path
 from unittest import mock
 
 import pytest
-from aoc.main import app
 from aocd.models import Puzzle
 from typer.testing import CliRunner
+
+from aoc.main import app
 
 runner = CliRunner()
 
@@ -90,7 +91,7 @@ class TestRunningSolution:
                 str(Path(__file__).parent / "data"),
                 "0",
                 "-f",
-                Path(__file__).parent / "data/custom_input.txt",
+                str(Path(__file__).parent / "data/custom_input.txt"),
             ],
         )
         if result.exception:

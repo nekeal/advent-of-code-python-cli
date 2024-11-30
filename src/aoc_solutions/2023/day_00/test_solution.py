@@ -1,4 +1,5 @@
-from ..base_tests import BaseTestChallenge
+from aoc.base_tests import BaseTestChallenge
+
 from . import Challenge
 
 

@@ -63,7 +63,7 @@ def import_challenge_module(year, day: int):
             f'Could not import "{e.name}"',
             fg=typer.colors.RED,
         )
-        if e.name == get_challenge_module_name:
+        if e.name == get_challenge_module_name(year, day):
             echo(
                 f"You have not solved day {day} yet. Start it using 'new-day' command",
                 fg=typer.colors.RED,
