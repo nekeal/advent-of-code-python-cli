@@ -109,6 +109,12 @@ warn_redundant_casts = true
 warn_return_any = true
 check_untyped_defs = true
 
+exclude = [
+    "templates",
+    "aoc_solutions",
+]
+
+
 [[tool.mypy.overrides]]
 module = "aocd.*"
 ignore_missing_imports = true
