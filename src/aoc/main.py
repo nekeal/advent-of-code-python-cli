@@ -12,6 +12,7 @@ from aocd import AocdError
 from aocd.exceptions import PuzzleLockedError
 from aocd.models import Puzzle
 
+from aoc.base import BaseChallenge
 from aoc.input_providers import SingleFileInputProvider, SmartFileInputProvider
 
 app = typer.Typer(no_args_is_help=True)
@@ -229,13 +230,25 @@ def submit(
         help="Which part of the solution to submit. "
         "You can use numbers 1/2 or letters a/b."
     ),
+    data_directory: Annotated[
+        Path,
+        typer.Option(
+            help="Path to a directory with data. Will be used if you won't provide"
+            " --file/-f option"
+        ),
+    ] = Path("data"),
 ):
     validated_part = _full_validate(part)
     module = import_challenge_module(year, day)
+    challenge: BaseChallenge = module.Challenge(
+        SmartFileInputProvider(
+            year=year, day=day, data_dir=data_directory, use_test_data=False
+        )
+    )
     if validated_part == "a":
-        solution = module.Challenge(use_test_data=False).part_1()
+        solution = challenge.part_1(challenge.get_input_lines(part=1))
     else:
-        solution = module.Challenge(use_test_data=False).part_2()
+        solution = challenge.part_2(challenge.get_input_lines(part=2))
     aocd.submit(solution, day=day, year=year, part=validated_part)
 
 
